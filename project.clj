@@ -6,4 +6,5 @@
                  [compojure "1.1.6"]
                  [ring "1.2.1"]
                  [hiccup "1.0.4"]]
+  :min-lein-version "2.0.0"
   :main wtfleming.core)
