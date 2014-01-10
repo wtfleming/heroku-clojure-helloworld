@@ -4,7 +4,9 @@ Simple example of running a clojure app on heroku - using compojure, hiccup, and
 
 ## Usage
 
-FIXME
+$ lein trampoline run -m wtfleming.core
+
+$ foreman start
 
 ## License
 

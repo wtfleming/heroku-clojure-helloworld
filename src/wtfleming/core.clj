@@ -1,6 +1,7 @@
 (ns wtfleming.core
   (:require [ring.adapter.jetty :as jetty]
-            [compojure.route :as route])
+            [compojure.route :as route]
+            [compojure.handler :as handler])
   (:use [hiccup.page :only (html5 include-js include-css)]
         [compojure.core :only (defroutes GET)]))
 
@@ -16,10 +17,19 @@
       [:input {:type "text" :ng-model "name" :placeholder "Your name"}]
       [:h1 "Hello {{name}}"]]))
 
-(defroutes site-routes
+(defroutes routes
   (GET "/" [] (index))
   (route/resources "/")
   (route/not-found "404 Not Found"))
 
+
+
+(def application (handler/site routes))
+
+(defn start [port]
+  (jetty/run-jetty #'application {:port port :join? false}))
+
 (defn -main []
-  (jetty/run-jetty site-routes {:port 5000 :join? false}))
+  (let [port (Integer/parseInt
+               (or (System/getenv "PORT") "5000"))]
+  (start port)))
